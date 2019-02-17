@@ -1,0 +1,279 @@
+<html>
+<head>
+
+
+ <!--Bootstrap link start-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--Bootstrap link end-->
+
+</head>
+<style>
+
+#b1 { background: hsl(0, 50%, 50%); }
+#b2 { background: hsl(30, 50%, 50%); }
+#b3 { background: hsl(60, 50%, 50%); }
+#b4 { background: hsl(90, 50%, 50%); }
+#b5 { background: hsl(120, 50%, 50%); }
+#b6 { background: hsl(150, 50%, 50%); }
+#b7 { background: hsl(180, 50%, 50%); }
+#b8 { background: hsl(210, 50%, 50%); }
+#b9 { background: hsl(240, 50%, 50%); }
+#b10 { background: hsl(270, 50%, 50%); }
+
+
+h2{
+
+    width: 35%;
+    background: black;
+    color: wheat;
+    border-radius: 15px;
+    margin-left: 18%;
+
+    padding: 9px;
+
+}
+.center{
+    position:absolute;
+    background: #88c4e0;
+    width: 50%;
+    margin-top: 11%;
+    text-align: center;
+    height: 330px;
+    margin-left: 22%;
+    border-radius: 70px;
+
+}
+
+.inputset{
+ 
+    border-radius: 10px;
+    background: black;
+    width: 22%;
+    
+    color: white;
+        text-align: center;
+
+}
+  .timerfont{
+    font-size: 19px !important;
+    vertical-align: center;
+    font-weight: 600;
+        margin-top: 18px;
+  }
+
+  .heading{
+position:absolute;
+margin-left:32%;
+margin-top:4%;
+font-style: italic;
+
+  }
+</style>
+<body>
+<div class="container" style="position:relative">
+  
+<div class="row">
+<div class="heading" >
+<div style="text-align:center;font-size: 18px"> For every second changing  of body color </div>
+  <div style="text-align:center;font-size: 30px"> Timer and Stop watch </div>
+</div>
+<div class="center">
+
+
+<div class="col-md-12" style="    line-height: 3;">
+
+<div style="text-align: center;font-size: 27px;">Time To Get Ready ! </div>
+
+</div>
+<div class="col-md-3" style="    line-height: 3;" >
+<span class="timerfont">Timer</span>
+
+</div>
+
+<div class="col-md-9" style="    line-height: 3;">
+<div style="text-align: left">
+<label class="inputset" id="hours"></label> 
+<label class="inputset" id="min"></label>
+<label class="inputset" id="sec"></label>
+<label class="inputset" id="display"></label>
+<div><span class="col-md-3" style="text-align: center;
+    font-weight: 600;margin-left: -15px;" >Hr</span>
+    <span class="col-md-3" style="text-align: center;
+    font-weight: 600;">MiN</span>
+    <span class="col-md-3" style="text-align: center;
+    font-weight: 600;">SEC</span>
+  </div>
+</div>
+</div>
+
+<div class="col-md-3" style="    margin-top: 21px;">
+<span  class="timerfont">Counter Time</span>
+</div>
+<div class="col-md-9">
+<h2 id="countertime">  </h2>
+
+</div>
+
+<div class="col-md-12" style="line-height: 6">
+
+<button class="btn btn-primary btn-lg" id="start">START</button>
+<button class="btn btn-primary btn-lg" id="stop">STOP</button>
+<button class="btn btn-primary btn-lg" id="clear">RESET</button>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+</body>
+
+<script>
+
+
+  function updatetime(){
+
+  var d= new Date(),
+ hour=d.getHours(),
+ minute=d.getMinutes(),
+ second=d.getSeconds();
+//Second check
+if(second<10){
+document.getElementById("sec").innerHTML="0" + second;
+}
+else{
+  document.getElementById("sec").innerHTML=second;
+}
+
+
+//Minute check
+if(minute<10){
+
+  document.getElementById("min").innerHTML="0" + minute;
+}
+else{
+
+  document.getElementById("min").innerHTML=minute;
+}
+
+
+//hour check
+
+if(hour<10){
+  document.getElementById("hours").innerHTML="0" + hour;
+
+}
+
+else if( hour>12){
+
+  document.getElementById("hours").innerHTML="0" + (hour-12);
+
+}
+else if(hour==24){
+
+document.getElementById("hours").innerHTML="0" + (hour-24);
+
+
+}
+
+else{
+
+  document.getElementById("hours").innerHTML=hour;
+}
+if(hour>12){
+  document.getElementById("display").innerHTML="PM";
+
+}
+else{
+
+  document.getElementById("display").innerHTML="AM";
+}
+
+
+
+}
+
+
+
+
+setInterval(updatetime,1000);
+
+
+ //For counter time
+
+ var h1 = document.getElementsByTagName('h2')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+timer();
+
+
+/* Start button */
+start.onclick = timer;
+
+/* Stop button */
+stop.onclick = function() {
+    clearTimeout(t);
+}
+
+/* Clear button */
+clear.onclick = function() {
+    h1.textContent = "00:00:00";
+    seconds = 0; minutes = 0; hours = 0;
+}
+
+
+// Setting change for body color to each second
+
+function run(interval, frames) {
+    var int = 1;
+    
+    function func() {
+        document.body.id = "b"+int;
+        int++;
+        if(int === frames) { int = 1; }
+    }
+    
+    setInterval(func, interval);
+}
+
+run(1000, 10); //milliseconds, frames
+
+
+
+
+
+</script>
+
+
+
+</html>
